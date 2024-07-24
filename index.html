@@ -1,0 +1,541 @@
+<html><head><base href="https://epicflix.com/"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>EpicFlix - Tu Plataforma de Streaming Épica</title><style>
+:root {
+    --primary-color: #e50914;
+    --secondary-color: #221f1f;
+    --text-color: #ffffff;
+    --bg-color: #141414;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+header {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 1rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+.logo {
+    color: var(--primary-color);
+    font-size: 2rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+nav {
+    float: right;
+}
+
+nav a {
+    color: var(--text-color);
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+main {
+    padding-top: 80px;
+}
+
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://example.com/epic-background.jpg');
+    background-size: cover;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.cta-button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #ff0a16;
+}
+
+.content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.movie-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+    transition: transform 0.3s;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+}
+
+.movie-card img {
+    width: 100%;
+    height: auto;
+}
+
+.movie-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    transform: translateY(100%);
+    transition: transform 0.3s;
+}
+
+.movie-card:hover .movie-info {
+    transform: translateY(0);
+}
+
+.upload-section {
+    background-color: var(--secondary-color);
+    padding: 2rem;
+    border-radius: 10px;
+    margin-top: 2rem;
+}
+
+form {
+    display: grid;
+    gap: 1rem;
+}
+
+label {
+    font-weight: bold;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #333;
+    background-color: #2b2b2b;
+    color: var(--text-color);
+    border-radius: 5px;
+}
+
+#uploadProgress {
+    width: 100%;
+    background-color: #2b2b2b;
+    border-radius: 5px;
+    margin-top: 1rem;
+    display: none;
+}
+
+#progressBar {
+    width: 0%;
+    height: 5px;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    transition: width 0.5s;
+}
+
+.featured-content {
+    position: relative;
+    margin-bottom: 2rem;
+    height: 56.25vw;
+    max-height: 80vh;
+    overflow: hidden;
+}
+
+.featured-content video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.featured-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+}
+
+.featured-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.featured-description {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.play-button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.play-button:hover {
+    background-color: #ff0a16;
+}
+
+#uploadedContent {
+    margin-top: 2rem;
+    background-color: var(--secondary-color);
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+#uploadedContent h3 {
+    margin-top: 0;
+}
+
+.video-player-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.video-player {
+    width: 80%;
+    max-width: 1280px;
+    aspect-ratio: 16 / 9;
+}
+
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+}
+
+.share-download-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.share-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.share-button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.share-button:hover {
+    background-color: #555;
+}
+
+.download-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.download-button:hover {
+    background-color: #45a049;
+}
+
+</style></head><body>
+    <header>
+        <a href="#" class="logo">EpicFlix</a>
+        <nav>
+            <a href="#home">Inicio</a>
+            <a href="#featured">Ver Ahora</a>
+            <a href="#estrenos">Estrenos</a>
+            <a href="#upload">Subir Contenido</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div>
+                <h1>Bienvenido a EpicFlix</h1>
+                <p>Tu plataforma de streaming épica</p>
+                <button class="cta-button">Explorar Contenido</button>
+            </div>
+        </section>
+
+        <section id="featured" class="content">
+            <h2 class="section-title">Ver Ahora</h2>
+            <div class="featured-content">
+                <video id="featuredVideo" poster="https://example.com/featured-movie-poster.jpg">
+                    <source src="" type="video/mp4">
+                    Tu navegador no soporta el elemento de video.
+                </video>
+                <div class="featured-info">
+                    <h3 class="featured-title">Título de la Película Destacada</h3>
+                    <p class="featured-description">Una emocionante película recién subida por uno de nuestros miembros. ¡No te la pierdas!</p>
+                    <button class="play-button" onclick="playFeaturedContent()">Reproducir</button>
+                    <div class="share-download-container">
+                        <div class="share-buttons">
+                            <button class="share-button" onclick="shareContent('facebook')">Facebook</button>
+                            <button class="share-button" onclick="shareContent('twitter')">Twitter</button>
+                            <button class="share-button" onclick="shareContent('whatsapp')">WhatsApp</button>
+                        </div>
+                        <button class="download-button" onclick="downloadContent()">Descargar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="estrenos" class="content">
+            <h2 class="section-title">Estrenos</h2>
+            <div id="estrenosGrid" class="movie-grid">
+                <!-- El contenido de estrenos se generará dinámicamente -->
+            </div>
+        </section>
+
+        <section id="upload" class="content">
+            <div class="upload-section">
+                <h2 class="section-title">Sube tu Contenido</h2>
+                <form id="uploadForm">
+                    <label for="title">Título:</label>
+                    <input type="text" id="title" name="title" required>
+
+                    <label for="description">Descripción:</label>
+                    <textarea id="description" name="description" rows="4" required></textarea>
+
+                    <label for="genre">Género:</label>
+                    <select id="genre" name="genre" required>
+                        <option value="">Selecciona un género</option>
+                        <option value="action">Acción</option>
+                        <option value="comedy">Comedia</option>
+                        <option value="drama">Drama</option>
+                        <option value="scifi">Ciencia Ficción</option>
+                        <option value="horror">Terror</option>
+                    </select>
+
+                    <label for="type">Tipo:</label>
+                    <select id="type" name="type" required>
+                        <option value="movie">Película</option>
+                        <option value="series">Serie</option>
+                    </select>
+
+                    <label for="releaseYear">Año de Lanzamiento:</label>
+                    <input type="number" id="releaseYear" name="releaseYear" min="1888" max="2099" required>
+
+                    <label for="contentFile">Archivo de Video:</label>
+                    <input type="file" id="contentFile" name="contentFile" accept="video/*" required>
+
+                    <label for="posterFile">Portada:</label>
+                    <input type="file" id="posterFile" name="posterFile" accept="image/*" required>
+
+                    <label for="downloadLink">Enlace de Descarga:</label>
+                    <input type="url" id="downloadLink" name="downloadLink" placeholder="https://ejemplo.com/descargar-pelicula" required>
+
+                    <button type="submit" class="cta-button">Subir Contenido</button>
+                </form>
+                <div id="uploadProgress">
+                    <div id="progressBar"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="videoPlayerContainer" class="video-player-container" style="display: none;">
+        <div class="close-button" onclick="closeVideoPlayer()">&times;</div>
+        <video id="videoPlayer" class="video-player" controls>
+            Tu navegador no soporta el elemento de video.
+        </video>
+    </div>
+
+    <script>
+    let uploadedContent = [];
+
+    document.getElementById('uploadForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        var progressBar = document.getElementById('progressBar');
+        var uploadProgress = document.getElementById('uploadProgress');
+        uploadProgress.style.display = 'block';
+        
+        var progress = 0;
+        var intervalId = setInterval(function() {
+            progress += 5;
+            progressBar.style.width = progress + '%';
+            
+            if (progress >= 100) {
+                clearInterval(intervalId);
+                alert('¡Tu contenido ha sido subido con éxito!');
+                uploadProgress.style.display = 'none';
+                progressBar.style.width = '0%';
+                
+                // Mostrar el contenido subido
+                showUploadedContent();
+            }
+        }, 200);
+    });
+
+    function showUploadedContent() {
+        var title = document.getElementById('title').value;
+        var description = document.getElementById('description').value;
+        var genre = document.getElementById('genre').value;
+        var type = document.getElementById('type').value;
+        var releaseYear = document.getElementById('releaseYear').value;
+        var contentFile = document.getElementById('contentFile').files[0];
+        var posterFile = document.getElementById('posterFile').files[0];
+        var downloadLink = document.getElementById('downloadLink').value;
+        
+        // Crear objeto de contenido
+        var content = {
+            title: title,
+            description: description,
+            genre: genre,
+            type: type,
+            releaseYear: releaseYear,
+            contentUrl: URL.createObjectURL(contentFile),
+            posterUrl: URL.createObjectURL(posterFile),
+            downloadLink: downloadLink
+        };
+        
+        // Agregar al array de contenido subido
+        uploadedContent.unshift(content);
+        
+        // Actualizar la sección "Ver Ahora"
+        updateFeaturedContent(content);
+        
+        // Actualizar la sección "Estrenos"
+        updateEstrenos();
+        
+        // Limpiar el formulario
+        document.getElementById('uploadForm').reset();
+    }
+
+    function updateFeaturedContent(content) {
+        var featuredContent = document.querySelector('.featured-content');
+        var featuredVideo = document.getElementById('featuredVideo');
+        
+        featuredVideo.src = content.contentUrl;
+        featuredVideo.poster = content.posterUrl;
+        
+        var featuredInfo = featuredContent.querySelector('.featured-info');
+        featuredInfo.innerHTML = `
+            <h3 class="featured-title">${content.title}</h3>
+            <p class="featured-description">${content.description}</p>
+            <button class="play-button" onclick="playFeaturedContent()">Reproducir</button>
+            <div class="share-download-container">
+                <div class="share-buttons">
+                    <button class="share-button" onclick="shareContent('facebook')">Facebook</button>
+                    <button class="share-button" onclick="shareContent('twitter')">Twitter</button>
+                    <button class="share-button" onclick="shareContent('whatsapp')">WhatsApp</button>
+                </div>
+                <button class="download-button" onclick="downloadContent('${content.downloadLink}')">Descargar</button>
+            </div>
+        `;
+    }
+
+    function updateEstrenos() {
+        var estrenosGrid = document.getElementById('estrenosGrid');
+        estrenosGrid.innerHTML = '';
+        
+        uploadedContent.forEach(function(content) {
+            var movieCard = document.createElement('div');
+            movieCard.className = 'movie-card';
+            movieCard.innerHTML = `
+                <img src="${content.posterUrl}" alt="${content.title}">
+                <div class="movie-info">
+                    <h3>${content.title}</h3>
+                    <p>Género: ${content.genre}</p>
+                    <p>Año: ${content.releaseYear}</p>
+                    <button class="download-button" onclick="downloadContent('${content.downloadLink}')">Descargar</button>
+                </div>
+            `;
+            estrenosGrid.appendChild(movieCard);
+        });
+    }
+
+    function playFeaturedContent() {
+        var videoPlayer = document.getElementById('videoPlayer');
+        var featuredVideo = document.getElementById('featuredVideo');
+        
+        videoPlayer.src = featuredVideo.src;
+        document.getElementById('videoPlayerContainer').style.display = 'flex';
+        videoPlayer.play();
+    }
+
+    function closeVideoPlayer() {
+        var videoPlayer = document.getElementById('videoPlayer');
+        videoPlayer.pause();
+        document.getElementById('videoPlayerContainer').style.display = 'none';
+    }
+
+    function shareContent(platform) {
+        var title = document.querySelector('.featured-title').textContent;
+        var url = window.location.href;
+        var text = `¡Mira "${title}" en EpicFlix!`;
+        var shareUrl;
+
+        switch(platform) {
+            case 'facebook':
+                shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+                break;
+            case 'twitter':
+                shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+                break;
+            case 'whatsapp':
+                shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text + ' ' + url)}`;
+                break;
+        }
+
+        window.open(shareUrl, '_blank');
+    }
+
+    function downloadContent(downloadLink) {
+        window.open(downloadLink, '_blank');
+    }
+    </script>
+</body></html>
